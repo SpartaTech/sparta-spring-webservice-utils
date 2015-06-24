@@ -1,2 +1,2 @@
 # sparta-spring-webservice-utils
-Srping Web Service Utility library
+Spring Web Service Utility library. Includes functionalities to enhance the use of spring-ws framework. 
