@@ -5,7 +5,7 @@
 	
 	<groupId>com.github.spartatech</groupId>
 	<artifactId>spring-ws-utils</artifactId>
-	<version>1.0</version>
+	<version>0.1-SNAPSHOT</version>
 	
 	<name>Sparta Spring WS Utils</name>
 	<description>Utility classes for spring-ws</description>
@@ -130,7 +130,11 @@
 					</execution>
 				</executions>
 			</plugin>
-
+			<plugin>
+        		<groupId>org.apache.maven.plugins</groupId>
+        		<artifactId>maven-release-plugin</artifactId>
+        		<version>2.5.2</version>
+      		</plugin>
 		</plugins>
 	</build>
 	
