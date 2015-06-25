@@ -3,7 +3,7 @@
 	
 	<groupId>com.github.spartatech</groupId>
 	<artifactId>spring-ws-utils</artifactId>
-	<version>0.1-SNAPSHOT</version>
+	<version>0.1</version>
 	
 	<name>Sparta Spring WS Utils</name>
 	<description>Utility classes for spring-ws</description>
@@ -48,7 +48,7 @@
 		<connection>scm:git:git@github.com:SpartaTech/sparta-spring-webservice-utils.git</connection>
 		<developerConnection>scm:git:git@github.com:SpartaTech/sparta-spring-webservice-utils.git</developerConnection>
 		<url>git@github.com:SpartaTech/sparta-spring-webservice-utils.git</url>
-	  <tag>Initial Version</tag>
+	  <tag>spring-ws-utils-0.1</tag>
   </scm>
 	
 	<properties>
