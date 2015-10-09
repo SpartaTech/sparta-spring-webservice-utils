@@ -3,7 +3,7 @@
 	
 	<groupId>com.github.spartatech</groupId>
 	<artifactId>spring-ws-utils</artifactId>
-	<version>0.2-SNAPSHOT</version>
+	<version>0.3-SNAPSHOT</version>
 	
 	<name>Sparta Spring WS Utils</name>
 	<description>Utility classes for spring-ws</description>
@@ -48,8 +48,7 @@
 		<connection>scm:git:git@github.com:SpartaTech/sparta-spring-webservice-utils.git</connection>
 		<developerConnection>scm:git:git@github.com:SpartaTech/sparta-spring-webservice-utils.git</developerConnection>
 		<url>git@github.com:SpartaTech/sparta-spring-webservice-utils.git</url>
-	  <tag>spring-ws-utils-0.1</tag>
-  </scm>
+  	</scm>
 	
 	<properties>
 		<java.version>1.7</java.version>
@@ -132,7 +131,7 @@
 			<plugin>
         		<groupId>org.apache.maven.plugins</groupId>
         		<artifactId>maven-release-plugin</artifactId>
-        		<version>2.5.2</version>
+        		<version>2.5.2</version><!--$NO-MVN-MAN-VER$-->
       		</plugin>
 		</plugins>
 	</build>
