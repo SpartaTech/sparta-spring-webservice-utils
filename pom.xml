@@ -3,7 +3,7 @@
 	
 	<groupId>com.github.spartatech</groupId>
 	<artifactId>spring-ws-utils</artifactId>
-	<version>0.2.1</version>
+	<version>0.2.2</version>
 	
 	<name>Sparta Spring WS Utils</name>
 	<description>Utility classes for spring-ws</description>
