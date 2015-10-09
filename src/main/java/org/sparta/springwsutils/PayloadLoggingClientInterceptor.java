@@ -99,7 +99,7 @@ public class PayloadLoggingClientInterceptor extends TransformerObjectSupport im
     public boolean handleResponse(MessageContext messageContext) throws WebServiceClientException {
         if (enableLogResponse && loggerResponse.isDebugEnabled()) {
             try {
-                loggerRequest.debug("Response: " + getMessage(messageContext.getResponse()));
+                loggerResponse.debug("Response: " + getMessage(messageContext.getResponse()));
             } catch(Exception e) {
                 LOG.error("Cannot Log Response", e);
             }
