@@ -66,3 +66,34 @@ And then configure what do you want to mask in you xslt. For instance if you wan
 	</xsl:template>
 </xsl>
 ```
+<br/>
+* PayloadLoggingClientInterceptor - Used to Log request/response for the client calls.  
+
+Has a more fine granularity than WebServiceTemplate (org.springframework.ws.client.MessageTracing).
+
+Enables control for different clients defining different packages.
+
+Adds the hability to log response timings.
+
+
+__How To use:__
+
+Add it as an interceptor for you WebServiceTemplate
+	
+```
+	<!-- Spring WS configuration -->
+	<bean id="webServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">
+	 ...
+		<property name="interceptors">
+	       <list>
+	            <bean class="org.sparta.springwsutils.PayloadLoggingClientInterceptor">
+	            	<property name="requestLoggerName" value="com.sample.request"/>
+	            	<property name="responseLoggerName" value="com.sample.response"/>
+	            	<property name="enableLogTiming" value="true"/>
+	            </bean>
+	        </list>
+		</property>
+		...
+	</bean>
+
+```

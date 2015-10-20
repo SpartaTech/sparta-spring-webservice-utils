@@ -40,11 +40,14 @@ public class PayloadLoggingClientInterceptor extends TransformerObjectSupport im
 
     private static final Logger LOG = LoggerFactory.getLogger(PayloadLoggingClientInterceptor.class);
     
+    private static String LOG_TIME_PROPERTY = "LogTimingClientInterceptor-START";
+
     private transient Logger loggerRequest = LoggerFactory.getLogger(PayloadLoggingClientInterceptor.class.getCanonicalName() + ".request");
     private transient Logger loggerResponse = LoggerFactory.getLogger(PayloadLoggingClientInterceptor.class.getCanonicalName() + ".response");
 
     private boolean enableLogRequest = true;
     private boolean enableLogResponse = true;
+    public boolean enableLogTiming = false;
     
 
     /**
@@ -80,13 +83,25 @@ public class PayloadLoggingClientInterceptor extends TransformerObjectSupport im
     public void setResponseLoggerName(String loggerName) {
         this.loggerResponse = LoggerFactory.getLogger(loggerName);
     }
+    
+    /**
+     * Setter method for enableLogTiming.
+     *
+     * @param enableLogTiming the enableLogTiming to set
+     */
+    public void setEnableLogTiming(boolean enableLogTiming) {
+        this.enableLogTiming = enableLogTiming;
+    }
 
 
     @Override
     public boolean handleRequest(MessageContext messageContext) throws WebServiceClientException {
+        if (enableLogTiming) {
+            messageContext.setProperty(LOG_TIME_PROPERTY, System.currentTimeMillis());
+        }
         if (enableLogRequest && loggerRequest.isDebugEnabled()) {
             try {
-                loggerRequest.debug("Request: " + getMessage(messageContext.getRequest()));
+                loggerRequest.debug("Request: {}", getMessage(messageContext.getRequest()));
             } catch(Exception e) {
                 LOG.error("Cannot Log Request", e);
             }
@@ -97,30 +112,42 @@ public class PayloadLoggingClientInterceptor extends TransformerObjectSupport im
     
     @Override
     public boolean handleResponse(MessageContext messageContext) throws WebServiceClientException {
-        if (enableLogResponse && loggerResponse.isDebugEnabled()) {
-            try {
-                loggerResponse.debug("Response: " + getMessage(messageContext.getResponse()));
-            } catch(Exception e) {
-                LOG.error("Cannot Log Response", e);
-            }
-        }
         return true;
     }
 
     @Override
     public boolean handleFault(MessageContext messageContext) throws WebServiceClientException {
-        if (enableLogResponse && loggerResponse.isDebugEnabled()) {
-            try {
-                loggerResponse.debug("Response: " + getMessage(messageContext.getResponse()));
-            } catch(Exception e) {
-                LOG.error("Cannot Log Response", e);
-            }
-        }
         return true;
     }
 
     @Override
     public void afterCompletion(MessageContext messageContext, Exception ex) throws WebServiceClientException {
+        long totalTime = -1;
+        if (enableLogTiming && loggerResponse.isDebugEnabled()) {
+            try { 
+                long start = (long) messageContext.getProperty(LOG_TIME_PROPERTY);
+                messageContext.removeProperty(LOG_TIME_PROPERTY);
+                totalTime = System.currentTimeMillis()-start;
+                
+                if (!enableLogResponse) {
+                    loggerResponse.debug("Execution timing: {}ms ", totalTime);
+                }
+            } catch (Exception e) {
+                logger.error("Cannot log timing because start time was not in messageContext.", e);
+            }
+        }
+        
+        if (enableLogResponse && loggerResponse.isDebugEnabled()) {
+            try {
+                if (enableLogTiming) {
+                    loggerResponse.debug("Response({}ms): {}", totalTime, getMessage(messageContext.getResponse()));
+                } else {
+                    loggerResponse.debug("Response: {}", getMessage(messageContext.getResponse()));
+                }
+            } catch(Exception e) {
+                LOG.error("Cannot Log Response", e);
+            }
+        }
     }
 
     /**
