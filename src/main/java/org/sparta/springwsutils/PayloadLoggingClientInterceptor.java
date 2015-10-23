@@ -16,6 +16,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ws.WebServiceMessage;
@@ -48,14 +49,24 @@ public class PayloadLoggingClientInterceptor extends TransformerObjectSupport im
     private boolean enableLogRequest = true;
     private boolean enableLogResponse = true;
     public boolean enableLogTiming = false;
+    public boolean removeNewline = false;
     
 
+    /**
+     * Setter method for removeNewline.
+     *
+     * @param removeNewline the removeNewline to set
+     */
+    public void setRemoveNewline(boolean removeNewline) {
+        this.removeNewline = removeNewline;
+    }
+    
     /**
      * Set this boolean to enable/disable log for Request
      *
      * @param enableLogRequest the enableLogRequest to set
      */
-    public final void setEnableLogRequest(boolean enableLogRequest) {
+    public void setEnableLogRequest(boolean enableLogRequest) {
         this.enableLogRequest = enableLogRequest;
     }
 
@@ -64,7 +75,7 @@ public class PayloadLoggingClientInterceptor extends TransformerObjectSupport im
      *
      * @param enableLogResponse the enableLogResponse to set
      */
-    public final void setEnableLogResponse(boolean enableLogResponse) {
+    public void setEnableLogResponse(boolean enableLogResponse) {
         this.enableLogResponse = enableLogResponse;
     }
 
@@ -112,16 +123,22 @@ public class PayloadLoggingClientInterceptor extends TransformerObjectSupport im
     
     @Override
     public boolean handleResponse(MessageContext messageContext) throws WebServiceClientException {
+        logResponse(messageContext);
         return true;
     }
 
     @Override
     public boolean handleFault(MessageContext messageContext) throws WebServiceClientException {
+        logResponse(messageContext);
         return true;
     }
 
     @Override
     public void afterCompletion(MessageContext messageContext, Exception ex) throws WebServiceClientException {
+        //For fault response it's called two times hence we cannot use it.
+    }
+
+    private void logResponse(MessageContext messageContext) {
         long totalTime = -1;
         if (enableLogTiming && loggerResponse.isDebugEnabled()) {
             try { 
@@ -149,7 +166,8 @@ public class PayloadLoggingClientInterceptor extends TransformerObjectSupport im
             }
         }
     }
-
+    
+    
     /**
      * Create a transformer to get the text message from a Source
      * 
@@ -178,7 +196,15 @@ public class PayloadLoggingClientInterceptor extends TransformerObjectSupport im
             Transformer transformer = createNonIndentingTransformer();
             StringWriter writer = new StringWriter();
             transformer.transform(source, new StreamResult(writer));
-            return writer.toString();
+            
+            //Retrieve msg and remove break line if requested
+            String msg = writer.toString();  
+            if (removeNewline) {
+                msg = StringUtils.remove(msg, System.getProperty("line.separator"));
+            }
+            
+            //Return processed message
+            return msg;
         }
         return null;
     }

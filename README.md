@@ -1,9 +1,11 @@
 # sparta-spring-webservice-utils
 Spring Web Service Utility library. Includes functionalities to enhance the use of spring-ws framework. 
 
-Features:
+##Features:##
 
-* PayloadTransformedLoggingInterceptor - This is an interceptor that combines Request/Response transformation with logging. Useful when you need to mask the request in the log for sensitive information.
+### PayloadTransformedLoggingInterceptor ###
+
+ This is an interceptor that combines Request/Response transformation with logging. Useful when you need to mask the request in the log for sensitive information.
 	
 	
 __How To use:__
@@ -67,7 +69,10 @@ And then configure what do you want to mask in you xslt. For instance if you wan
 </xsl>
 ```
 <br/>
-* PayloadLoggingClientInterceptor - Used to Log request/response for the client calls.  
+
+###PayloadLoggingClientInterceptor###
+
+Used to Log request/response for the client calls.  
 
 Has a more fine granularity than WebServiceTemplate (org.springframework.ws.client.MessageTracing).
 
@@ -90,6 +95,7 @@ Add it as an interceptor for you WebServiceTemplate
 	            	<property name="requestLoggerName" value="com.sample.request"/>
 	            	<property name="responseLoggerName" value="com.sample.response"/>
 	            	<property name="enableLogTiming" value="true"/>
+	               	<property name="removeNewline" value="true"/>
 	            </bean>
 	        </list>
 		</property>
@@ -97,3 +103,10 @@ Add it as an interceptor for you WebServiceTemplate
 	</bean>
 
 ```
+
+options: 
+
+* __requestLoggerName__: name of the category that will be logged in SL4J for the request. If not provided will use the default value: org.sparta.springwsutils.PayloadLoggingClientInterceptor.request
+* __responseLoggerName__: name of the category that will be logged in SL4J for the response. If not provided will use the default value: org.sparta.springwsutils.PayloadLoggingClientInterceptor.response
+* __enableLogTiming__: If set to true it will add the total timing of the execution in the response line. Default is false.
+* __removeNewLine__: If set to true it will remove all break lines from the request/response payload logging. 
