@@ -16,11 +16,11 @@ Add in your applicationContext.xml
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xmlns:sws="http://www.springframework.org/schema/web-services" 
-	   xsi:schemaLocation="
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd 
-		http://www.springframework.org/schema/web-services http://www.springframework.org/schema/web-services/web-services-2.0.xsd">
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:sws="http://www.springframework.org/schema/web-services" 
+   xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd 
+	http://www.springframework.org/schema/web-services http://www.springframework.org/schema/web-services/web-services-2.0.xsd">
 
 	<sws:interceptors>
 		<bean class="org.sparta.springwsutils.PayloadTransformedLoggingInterceptor">
@@ -106,21 +106,21 @@ __How To use:__
 Add it as an interceptor for you WebServiceTemplate
 	
 ```xml
-	<!-- Spring WS configuration -->
-	<bean id="webServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">
-	 ...
-		<property name="interceptors">
-	       <list>
-	            <bean class="org.sparta.springwsutils.PayloadLoggingClientInterceptor">
-	            	<property name="requestLoggerName" value="com.sample.request"/>
-	            	<property name="responseLoggerName" value="com.sample.response"/>
-	            	<property name="enableLogTiming" value="true"/>
-	               	<property name="removeNewline" value="true"/>
-	            </bean>
-	        </list>
-		</property>
-		...
-	</bean>
+<!-- Spring WS configuration -->
+<bean id="webServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">
+ ...
+	<property name="interceptors">
+       <list>
+	    <bean class="org.sparta.springwsutils.PayloadLoggingClientInterceptor">
+		<property name="requestLoggerName" value="com.sample.request"/>
+		<property name="responseLoggerName" value="com.sample.response"/>
+		<property name="enableLogTiming" value="true"/>
+		<property name="removeNewline" value="true"/>
+	    </bean>
+	</list>
+	</property>
+	...
+</bean>
 
 ```
 
@@ -141,17 +141,17 @@ __How To use:__
 
 Add in your applicationContext.xml
 	
-```
-	<!-- Spring WS configuration -->
-	<bean id="webServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">
-	 ...
-		<property name="interceptors">
-	       <list>
-	            <bean class="org.sparta.springwsutils.MDCInfoInjectInterceptor"/>
-	        </list>
-		</property>
-		...
-	</bean>			
+```xml
+<!-- Spring WS configuration -->
+<bean id="webServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">
+ ...
+	<property name="interceptors">
+       <list>
+	    <bean class="org.sparta.springwsutils.MDCInfoInjectInterceptor"/>
+	</list>
+	</property>
+	...
+</bean>			
 ```
 
 If you are using java-based configuration you should add to you WebServiceConfiguration class.
