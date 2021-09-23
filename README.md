@@ -12,7 +12,7 @@ __How To use:__
 
 Add in your applicationContext.xml
 	
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -33,7 +33,7 @@ Add in your applicationContext.xml
 
 If you are using java-based configuration you should add to you WebServiceConfiguration class.
 
-```
+```Java
 @EnableWs
 @Configuration
 public class WebServiceConfig extends WsConfigurerAdapter {
@@ -65,7 +65,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 
 And then configure what do you want to mask in you xslt. For instance if you want do mask credit card:
 
-```
+```xml
 <xsl:stylesheet
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:typ="http://your/types"
@@ -105,7 +105,7 @@ __How To use:__
 
 Add it as an interceptor for you WebServiceTemplate
 	
-```
+```xml
 	<!-- Spring WS configuration -->
 	<bean id="webServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">
 	 ...
@@ -156,7 +156,7 @@ Add in your applicationContext.xml
 
 If you are using java-based configuration you should add to you WebServiceConfiguration class.
 
-```
+```Java
 @EnableWs
 @Configuration
 public class WebServiceConfig extends WsConfigurerAdapter {
@@ -182,7 +182,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 
 And then configure your log tool to show this MDC value. example for logback.xml.
 
-```
+```xml
 <!DOCTYPE xml>
 <configuration scan="true" scanPeriod="60 seconds"> 
 
