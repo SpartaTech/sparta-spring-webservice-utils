@@ -1,9 +1,9 @@
 # sparta-spring-webservice-utils
 Spring Web Service Utility library. Includes functionalities to enhance the use of spring-ws framework. 
 
-##Features:##
+## Features: 
 
-### PayloadTransformedLoggingInterceptor ###
+### PayloadTransformedLoggingInterceptor
 
  This is an interceptor that combines Request/Response transformation with logging. Useful when you need to mask the request in the log for sensitive information.
 	
@@ -90,7 +90,7 @@ And then configure what do you want to mask in you xslt. For instance if you wan
 ```
 <br/>
 
-###PayloadLoggingClientInterceptor###
+### PayloadLoggingClientInterceptor
 
 Used to Log request/response for the client calls.  
 
